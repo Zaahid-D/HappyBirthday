@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy 20th Birthday, Matamela!</title>
+  <!-- Google Fonts for a handwritten style -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Global reset and base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Dancing Script', cursive;
+      overflow-x: hidden;
+      background: #fff;
+    }
+
+    /* Header Section Styles */
+    .hero {
+      background: linear-gradient(135deg, #e780b2, #230222); /* pastel gradient */
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    /* Wiggle animation for header icons */
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+    .wiggle {
+      display: inline-block;
+      animation: wiggle 2s infinite;
+    }
+    /* Style the button: white text with transparent background and white border */
+    .button-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    button {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Gallery Section */
+    .flower-section {
+      background: white;
+      padding: 60px 20px;
+      position: relative;
+    }
+    .gallery h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #9a4788; /* pastel purple */
+      text-align: center;
+    }
+    .photo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    /* Polaroid-style container for iframes */
+    .polaroid {
+      background: white;
+      padding: 10px;
+      border: 2px solid #eee;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      position: relative;
+      margin: 10px;
+      width: 300px;
+      height: 225px; /* 4:3 aspect ratio */
+      overflow: hidden;
+      animation: wigglePolaroid 3s infinite;
+    }
+    .polaroid:hover {
+      transform: scale(1.1);
+    }
+    @keyframes wigglePolaroid {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+    .polaroid iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: none;
+    }
+
+    /* Big Envelope Styles */
+    .big-envelope-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    #big-envelope {
+      background: #e780b2;
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+    #big-envelope:hover {
+      background: #d969a1;
+    }
+    #big-envelope i {
+      color: white;
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    #big-envelope span {
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    /* Floating Flower Emoji Styles */
+    #flower-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .floating-flower {
+      position: absolute;
+      pointer-events: none;
+      animation: floatFlower linear infinite;
+    }
+    @keyframes floatFlower {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+    .modal-content p {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .close-modal {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      button {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+      .polaroid {
+        width: 200px;
+        height: 150px;
+      }
+      #big-envelope {
+        width: 120px;
+        height: 120px;
+      }
+      #big-envelope i {
+        font-size: 2.5rem;
+      }
+      #big-envelope span {
+        font-size: 1rem;
+      }
+    }
+
+    .bouquet-builder {
+  background: #fff0f5;
+  padding: 60px 20px;
+  text-align: center;
+}
+.bouquet-builder h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #d56ba3;
+}
+.flower-options {
+  font-size: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.flower-emoji {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.flower-emoji:hover {
+  transform: scale(1.2);
+}
+.bouquet-vase {
+  background: white;
+  border: 2px dashed #d56ba3;
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 80px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+#bouquet {
+  font-size: 2rem;
+  margin-top: 10px;
+}
+#bouquet-message {
+  margin-top: 30px;
+  font-size: 1.5rem;
+  color: #a1438d;
+  animation: fadeIn 2s ease;
+}
+.hidden {
+  display: none;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content p, #bouquet-message p {
+      font-family: 'Roboto', sans-serif !important;
+      font-weight: 300;
+    }
+
+    .progress-bar {
+      width: 80%;
+      max-width: 400px;
+      height: 20px;
+      background: #ffe6f0;
+      border-radius: 10px;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #e780b2;
+      transition: width 0.5s ease;
+    }
+
+    .instructions {
+      font-family: 'Roboto', sans-serif;
+      color: #666;
+      margin: 15px 0;
+      font-size: 1rem;
+    }
+
+    /* Modify bouquet-builder section */
+    .bouquet-builder {
+      padding: 40px 20px;
+    }
+
+    @media (max-width: 600px) {
+      .bouquet-builder h2 {
+        font-size: 1.5rem;
+      }
+      .flower-options {
+        font-size: 1.5rem;
+      }
+      #bouquet {
+        font-size: 1.5rem;
+      }
+      .instructions {
+        font-size: 0.9rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="hero">
+    <h1>
+      <i class="fas fa-birthday-cake wiggle"></i>
+      Happy 20th Birthday, Matamela!
+      <i class="fas fa-birthday-cake wiggle"></i>
+    </h1>
+    <div class="button-container">
+      <button id="surpriseBtn">Surprise!</button>
+    </div>
+  </header>
+
+  <!-- Gallery Section with Floating Flower Emojis -->
+  <section class="flower-section">
+    <!-- Container for floating flower emojis -->
+    <div id="flower-container"></div>
+    
+    <div class="gallery">
+      <h2>Snapshots of the Birthday Girl</h2>
+      <div class="photo-grid">
+        <div class="polaroid">
+          <iframe src="https://drive.google.com/file/d/1g-l_Uy_0oZ8AcP51A8O5i-z7q7wtzgeG/preview" allow="autoplay"></iframe>
+        </div>
+        <div class="polaroid">
+          <iframe src="https://drive.google.com/file/d/1C_m6Sc7O-WQPN2tVQKhKQuCy3lYdtOyz/preview" allow="autoplay"></iframe>
+        </div>
+        <div class="polaroid">
+          <iframe src="https://drive.google.com/file/d/1wATyKyogab4sV5I9akC0Ht-9I1oKqbPd/preview" allow="autoplay"></iframe>
+        </div>
+        <div class="polaroid">
+          <iframe src="https://drive.google.com/file/d/10nNms7yL-JrkQ7klohr-GQvLEIYpYUGd/preview" allow="autoplay"></iframe>
+        </div>
+        <div class="polaroid">
+          <iframe src="https://drive.google.com/file/d/1ASsjzynaf0AmFGFuggeJbfC22NppPvmx/preview" allow="autoplay"></iframe>
+        </div>
+      </div>
+      <!-- Big Envelope Container -->
+      <div class="big-envelope-container">
+        <div id="big-envelope">
+          <i class="fas fa-envelope"></i>
+          <span>Open Me</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Message -->
+  <div id="messageModal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal">&times;</button>
+      <p>Dearest Matamela, <br>
+        <br>
+        Wishing you a day as radiant as your smile, <br>
+        A year as wonderful as you are, <br>
+        And memories as sweet as birthday cake! <br>
+        <br>
+        Happy 20th Birthday! 🌸✨<br>
+        <br>
+        ✨🎂✨
+      </p>
+    </div>
+  </div>
+
+  <section class="bouquet-builder">
+    <h2>Build Your Birthday Bouquet 🌸</h2>
+    <div class="instructions">Choose 5 flowers by clicking on them to create your special bouquet, and reveal a secret message!</div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="flower-options">
+      <span class="flower-emoji">🌹</span>
+      <span class="flower-emoji">🌻</span>
+      <span class="flower-emoji">🌸</span>
+      <span class="flower-emoji">🌺</span>
+      <span class="flower-emoji">🌷</span>
+      <span class="flower-emoji">🌼</span>
+      <span class="flower-emoji">💐</span>
+      <span class="flower-emoji">🌿</span>
+    </div>
+    <div class="bouquet-vase">
+      <h3>Your Bouquet:</h3>
+      <div id="bouquet"></div>
+    </div>
+    <div id="bouquet-message" class="hidden">
+      <p>Like these blooms, may your year ahead be colorful, vibrant, and full of wonderful surprises!</p>
+    </div>
+  </section>
+  
+
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    // Surprise button triggers confetti
+    const surpriseBtn = document.getElementById('surpriseBtn');
+    surpriseBtn.addEventListener('click', () => {
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+    });
+
+    // Function to create a floating flower emoji
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('floating-flower');
+      // Use normal flower emojis from the array
+      const emojis = ["🌹", "🌷", "💐", "🌺", "🌸", "🌼", "🌻", "🌿"];
+      flower.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      // Randomize horizontal position, size, and animation speed
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.bottom = '-50px';
+      const size = 20 + Math.random() * 20;
+      flower.style.fontSize = size + 'px';
+      const duration = 5 + Math.random() * 5;
+      flower.style.animationDuration = duration + 's';
+      document.getElementById('flower-container').appendChild(flower);
+      // Remove the flower once its animation is complete
+      setTimeout(() => flower.remove(), duration * 1000);
+    }
+    // Create a new flower emoji every 700ms
+    setInterval(createFlower, 700);
+
+    // Modal functionality for big envelope
+    const bigEnvelope = document.getElementById('big-envelope');
+    const messageModal = document.getElementById('messageModal');
+    const closeModal = document.querySelector('.close-modal');
+
+    bigEnvelope.addEventListener('click', () => {
+      messageModal.style.display = "flex";
+    });
+
+    closeModal.addEventListener('click', () => {
+      messageModal.style.display = "none";
+    });
+
+    // Also close modal when clicking outside the modal content
+    window.addEventListener('click', (event) => {
+      if (event.target === messageModal) {
+        messageModal.style.display = "none";
+      }
+    });
+  </script>
+
+<script>
+    // Modified bouquet builder script
+    const bouquetContainer = document.getElementById("bouquet");
+    const messageBox = document.getElementById("bouquet-message");
+    const flowers = document.querySelectorAll(".flower-emoji");
+    const progressFill = document.querySelector(".progress-fill");
+
+    let pickedFlowers = [];
+    const maxFlowers = 5;
+
+    flowers.forEach(flower => {
+      flower.addEventListener("click", () => {
+        if (pickedFlowers.length < maxFlowers) {
+          pickedFlowers.push(flower.innerText);
+          bouquetContainer.innerText = pickedFlowers.join(" ");
+          progressFill.style.width = `${(pickedFlowers.length/maxFlowers)*100}%`;
+          
+          // Add temporary animation
+          flower.style.transform = "scale(1.3)";
+          setTimeout(() => flower.style.transform = "scale(1)", 200);
+
+          if (pickedFlowers.length === maxFlowers) {
+            setTimeout(() => {
+              messageBox.classList.remove("hidden");
+              window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+              });
+            }, 500);
+          }
+        }
+      });
+    });
+  </script>
+<!-- Add this right before the closing </body> tag -->
+<footer class="simple-signature">
+    <div class="signature-line">
+      <span class="heart">✨</span>
+      <span class="name">Zaahid De-Almeida</span>
+    </div>
+  </footer>
+  
+  <style>
+    .simple-signature {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      border-top: 1px solid #e780b2;
+    }
+  
+    .signature-line {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.2rem;
+      color: #9a4788;
+    }
+  
+    .heart {
+      color: #e780b2;
+      margin-right: 5px;
+      transition: transform 0.3s ease;
+    }
+  
+    .name {
+      font-weight: 500;
+    }
+  
+    .heart:hover {
+      transform: scale(1.2);
+    }
+  
+    @media (max-width: 600px) {
+      .signature-line {
+        font-size: 1rem;
+      }
+    }
+  </style>
+
+  
+</body>
+</html>
